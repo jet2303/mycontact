@@ -3,23 +3,23 @@ package com.fastcampus.javaallinone.project3.mycontact.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data           //side effect 있을수도...
+
 
 //@RequiredArgsConstructor
 //@EqualsAndHashCode
 //@Getter
 //@Setter
 //@ToString
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data           //side effect 있을수도...
+@RequiredArgsConstructor
 public class Person {
 
     @Id
@@ -33,8 +33,9 @@ public class Person {
     @NonNull
     private int age;
 
-    private String hobby;
 
+    private String hobby;
+    @NonNull
     private String bloodType;
 
     private String address;
@@ -43,10 +44,10 @@ public class Person {
 
     private String job;
 
-    @Override
-    public String toString() {
-        return id+" "+name +" "+ age +" "+ hobby +" "+ bloodType;
-    }
+    //영속성을 함께 관리하겠다는 의미
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Block block;
+
 
 
 //    public boolean equals(Object object){
