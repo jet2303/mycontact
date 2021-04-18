@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,9 +38,11 @@ public class PersonService {
     }
 
     public Person getPerson(Long id) {
-        Person person = personRepository.findById(id).get();
+//        Person person = personRepository.findById(id).get();
 
-        System.out.println("person: " + person);
+        Person person = personRepository.findById(id).orElse(null); //get했을때 값없으면 리턴
+
+
         log.info("person : {}", person);
         return person;
     }
