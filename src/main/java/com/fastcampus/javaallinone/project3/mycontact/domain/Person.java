@@ -20,7 +20,7 @@ import javax.persistence.*;
 public class Person {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //@ToString.Exclude           //ToString에 표시 시키지 않음.
