@@ -25,14 +25,17 @@ public class Person {
 
     //@ToString.Exclude           //ToString에 표시 시키지 않음.
     @NonNull
+    @Column(nullable = false)
     private String name;
 
     @NonNull
+    //@Min(1)
     private int age;
 
 
     private String hobby;
     @NonNull
+    //@NotEmpty
     private String bloodType;
 
     private String address;
