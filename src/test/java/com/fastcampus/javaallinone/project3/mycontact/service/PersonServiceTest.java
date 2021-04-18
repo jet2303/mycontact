@@ -67,6 +67,15 @@ class PersonServiceTest {
 
         result.forEach(System.out::println);
     }
+    @Test
+    void getPeopleByName(){
+        givenPeople();
+
+        List<Person> result = personService.getPeopleByName("martin");
+
+        result.forEach(System.out::println);
+    }
+
 //
 //    private void givenBlocks() {
 //        givenBlock("martin");
@@ -87,6 +96,7 @@ class PersonServiceTest {
         givenPerson("martin",10,"A");
         givenPerson("david",9,"B");
         givenPerson("dennis",9,"O");
+        givenPerson("martin",11,"AB");
         givenBlockPerson("martin",11,"AB");
     }
 
