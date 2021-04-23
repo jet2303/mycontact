@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -20,40 +21,45 @@ class PersonRepositoryTest {
     private PersonRepository personRepository;
 
     @Test
-    void crud(){
-        Person person = new Person();
+    void findByName(){
+        List<Person> people = personRepository.findByName("tony");
+        Assertions.assertEquals(people.size(),1);
 
-        person.setName("john");
-        personRepository.save(person);
+        Person person = people.get(0);
 
-
-        List<Person> result = personRepository.findByName("john");
-
-//        Assertions.assertEquals(result.size(), 1);
-//        Assertions.assertEquals(result.get(0).getName(), "john");
-//        Assertions.assertEquals(result.get(0).getAge(), 10);
-
-
+        Assertions.assertAll(
+                ()-> Assertions.assertEquals(person.getName(), "tony"),
+                ()-> Assertions.assertEquals(person.getHobby(), "reading"),
+                ()->Assertions.assertEquals(person.getAddress(), "서울"),
+                ()->Assertions.assertEquals(person.getBirthday(), Birthday.of(LocalDate.of(1991,7,10))),
+                ()->Assertions.assertEquals(person.getJob(), "officer"),
+                ()->Assertions.assertEquals(person.getPhoneNumber(), "010-2222-5555"),
+                ()->Assertions.assertEquals(person.isDeleted(), false)
+        );
     }
 
-
-//    private void givenPerson(String name, int age, String bloodType, LocalDate birthday){
-//        Person person = new Person(name, age, bloodType);
-//        person.setBirthday(new Birthday(birthday));
-//
-//        personRepository.save(person);
-//        //personRepository.save(new Person(name, age, bloodType));
-//
-//    }
+    @Test
+    void findByNameIfDeleted(){
+        List<Person> people = personRepository.findByName("andrew");
+        Assertions.assertEquals(people.size(), 0);
+    }
 
     @Test
-    void findByBirthdayBetween(){
+    void findByMonthOfBirthday(){
+        List<Person> people = personRepository.findByMonthOfBirthday(7);
 
+        Assertions.assertEquals(people.size(), 2);
+        Assertions.assertAll(
+                ()-> Assertions.assertEquals(people.get(0).getName(), "david"),
+                ()-> Assertions.assertEquals(people.get(1).getName(), "tony")
+        );
+    }
 
-        List<Person> result = personRepository.findByMonthOfBirthday(13);
-//        Assertions.assertEquals(result.size(), 2);
-//        Assertions.assertEquals(result.get(0).getName(), "martin");
-//        Assertions.assertEquals(result.get(1).getName(), "sophia");
+    @Test
+    void findPeopleDeleted(){
+        List<Person> people = personRepository.findPeopleDeleted();
 
+        Assertions.assertEquals(people.size(), 1);          //List를 반환할경우 size 체크는 필수.
+        Assertions.assertEquals(people.get(0).getName(), "andrew");
     }
 }
