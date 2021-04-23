@@ -23,32 +23,35 @@ public class PersonController {
     @RequestMapping(value = "/{id}")
     @GetMapping
     public Person getPerson(@PathVariable Long id){
+
         return personService.getPerson(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)                 //조금더 명확하게 create 되었다는것 200 OK 의 세부항목쯤이라고 생각.
-    public void postPerson(@RequestBody Person person){     //POST 방식으로 전송된 HTTP 요청 데이터를 Person 타입의 person파라미터로 수신됨.
-        personService.put(person);
-        log.info("person -> {}" + personRepository.findAll());
+    public void postPerson(@RequestBody PersonDto persondto){     //POST 방식으로 전송된 HTTP 요청 데이터를 Person 타입의 person파라미터로 수신됨.
+        personService.put(persondto);
+
     }
 
     @PutMapping(value = "/{id}")
     public void modifyPerson(@PathVariable Long id, @RequestBody PersonDto person){
         personService.modify(id, person);
 
-        log.info("person -> {}" + personRepository.findAll());
+
     }
 
     @PatchMapping("/{id}")      //일부 resource 업데이트시 사용
     public void modifyPerson(@PathVariable Long id, String name){
         personService.modify(id,name);
-        log.info("person -> {}" + personRepository.findAll());
+
     }
 
+    //
     @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable Long id){
         personService.delete(id);
-        log.info("person -> {}" + personRepository.findAll());
+
+
     }
 }

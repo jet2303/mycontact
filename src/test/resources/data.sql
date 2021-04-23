@@ -4,12 +4,12 @@ insert into person(`id`,`name`,`year_of_birthday`,`month_of_birthday`,`day_of_bi
 insert into person(`id`,`name`,`year_of_birthday`,`month_of_birthday`,`day_of_birthday`) values (4,'sophia',1994,8,31);
 insert into person(`id`,`name`,`year_of_birthday`,`month_of_birthday`,`day_of_birthday`) values (5,'benny',1995,12,23);
 
-insert into block(`id`,`name`) values (1,'dennis');
-insert into block(`id`,`name`) values (2,'sophia');
-
-update person set block_id = 1 WHERE id = 3;
-UPDATE person
-   SET block_id = 2
-  WHERE id = 4;
+-- insert into block(`id`,`name`) values (1,'dennis');
+-- insert into block(`id`,`name`) values (2,'sophia');
+--
+-- update person set block_id = 1 WHERE id = 3;
+-- UPDATE person
+--    SET block_id = 2
+--   WHERE id = 4;
 
 --ctrl + F -> alt + enter  == 다중선택

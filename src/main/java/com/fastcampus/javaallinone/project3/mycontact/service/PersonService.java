@@ -1,10 +1,7 @@
 package com.fastcampus.javaallinone.project3.mycontact.service;
 
 import com.fastcampus.javaallinone.project3.mycontact.controller.dto.PersonDto;
-import com.fastcampus.javaallinone.project3.mycontact.domain.Block;
 import com.fastcampus.javaallinone.project3.mycontact.domain.Person;
-import com.fastcampus.javaallinone.project3.mycontact.domain.dto.Birthday;
-import com.fastcampus.javaallinone.project3.mycontact.repository.BlockRepository;
 import com.fastcampus.javaallinone.project3.mycontact.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,14 +26,14 @@ public class PersonService {
 //                    .filter(person -> person.getBlock() == null)
 //                    .collect(Collectors.toList());
 //    }
-
-    public List<Person> getPeopleByName(String name){
- //       List<Person> people = personRepository.findAll();
-
-   //     return people.stream().filter(person ->person.getName().equals(name)).collect(Collectors.toList());
-   //     return personRepository.findByName(name);
-        return personRepository.findByBlockIsNull();
-    }
+//
+//    public List<Person> getPeopleByName(String name){
+// //       List<Person> people = personRepository.findAll();
+//
+//   //     return people.stream().filter(person ->person.getName().equals(name)).collect(Collectors.toList());
+//   //     return personRepository.findByName(name);
+//        return personRepository.findByBlockIsNull();
+//    }
 
     public Person getPerson(Long id) {
 //        Person person = personRepository.findById(id).get();
@@ -51,8 +46,11 @@ public class PersonService {
     }
 
     @Transactional
-    public void put(Person person){
-        personRepository.save((person));
+    public void put(PersonDto personDto){
+        Person person = new Person();
+        person.set(personDto);
+        person.setName(personDto.getName());
+        personRepository.save(person);
     }
 
     @Transactional

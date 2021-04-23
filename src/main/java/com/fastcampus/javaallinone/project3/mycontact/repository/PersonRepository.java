@@ -12,7 +12,7 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findByName(String name);       //Query Method
 
-    List<Person> findByBlockIsNull();   //차단이 되지않은 person을 가져옴
+
 
 
     //List<Person> findByBirthdayBetween(LocalDate startDate, LocalDate endDate);
