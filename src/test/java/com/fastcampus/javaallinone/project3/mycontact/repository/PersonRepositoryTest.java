@@ -23,7 +23,6 @@ class PersonRepositoryTest {
     void crud(){
         Person person = new Person();
 
-        person.setAge(10);
         person.setName("john");
         personRepository.save(person);
 
@@ -37,25 +36,15 @@ class PersonRepositoryTest {
 
     }
 
-    @Test
-    void finByBloodType(){
 
-
-        List<Person> result = personRepository.findByBloodType("A");
-
-//        Assertions.assertEquals(result.size(), 1);
-//        Assertions.assertEquals(result.get(0).getName(), "martin");
-
-    }
-
-    private void givenPerson(String name, int age, String bloodType, LocalDate birthday){
-        Person person = new Person(name, age, bloodType);
-        person.setBirthday(new Birthday(birthday));
-
-        personRepository.save(person);
-        //personRepository.save(new Person(name, age, bloodType));
-
-    }
+//    private void givenPerson(String name, int age, String bloodType, LocalDate birthday){
+//        Person person = new Person(name, age, bloodType);
+//        person.setBirthday(new Birthday(birthday));
+//
+//        personRepository.save(person);
+//        //personRepository.save(new Person(name, age, bloodType));
+//
+//    }
 
     @Test
     void findByBirthdayBetween(){
