@@ -1,6 +1,7 @@
 package com.fastcampus.javaallinone.project3.mycontact.repository;
 
 import com.fastcampus.javaallinone.project3.mycontact.domain.Person;
+import com.fastcampus.javaallinone.project3.mycontact.domain.dto.Birthday;
 import jdk.vm.ci.meta.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findByName(String name);       //Query Method
 
-
+    List<Person> findByBirthday(Birthday birthday);
 
 
     //List<Person> findByBirthdayBetween(LocalDate startDate, LocalDate endDate);
@@ -25,4 +26,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     //@Query(value = "select person from Person person where person.deleted = true")     //삭제된것도 찾을수 있게
     @Query(value = "select * from Person person where person.deleted = true", nativeQuery = true)
     List<Person> findPeopleDeleted();
+
+
 }

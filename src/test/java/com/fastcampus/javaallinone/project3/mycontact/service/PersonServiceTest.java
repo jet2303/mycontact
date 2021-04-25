@@ -43,6 +43,16 @@ class PersonServiceTest {
     private PersonRepository personRepository;
 
     @Test
+    void getBirthdayList(){
+        List<Person> result = personRepository.findByBirthday(Birthday.of(LocalDate.now()));
+        int cnt = result.size();
+
+        while(cnt>0) {
+            System.out.println(result.get(cnt).getName());
+        }
+    }
+
+    @Test
     void getAll(){
         when(personRepository.findAll(any(Pageable.class)))
                 .thenReturn(new PageImpl<>(Lists.newArrayList(new Person("martin"),new Person("dennis"),new Person("tony"))));
