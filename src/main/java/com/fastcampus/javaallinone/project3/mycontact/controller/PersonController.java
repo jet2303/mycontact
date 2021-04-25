@@ -2,12 +2,23 @@ package com.fastcampus.javaallinone.project3.mycontact.controller;
 
 import com.fastcampus.javaallinone.project3.mycontact.controller.dto.PersonDto;
 import com.fastcampus.javaallinone.project3.mycontact.domain.Person;
+import com.fastcampus.javaallinone.project3.mycontact.exception.PersonNotFoundException;
+import com.fastcampus.javaallinone.project3.mycontact.exception.RenameNotPermittedException;
+import com.fastcampus.javaallinone.project3.mycontact.exception.dto.ErrorResponse;
 import com.fastcampus.javaallinone.project3.mycontact.repository.PersonRepository;
 import com.fastcampus.javaallinone.project3.mycontact.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RequestMapping(value = "/api/person")      //
@@ -19,6 +30,11 @@ public class PersonController {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @GetMapping
+    public Page<Person> getAll(@PageableDefault Pageable pageable){
+        return personService.getAll(null);
+    }
 
     @RequestMapping(value = "/{id}")
     @GetMapping
@@ -36,15 +52,14 @@ public class PersonController {
 
     @PutMapping(value = "/{id}")
     public void modifyPerson(@PathVariable Long id, @RequestBody PersonDto person){
-        personService.modify(id, person);
 
-
+            personService.modify(id, person);
     }
 
     @PatchMapping("/{id}")      //일부 resource 업데이트시 사용
     public void modifyPerson(@PathVariable Long id, String name){
-        personService.modify(id,name);
 
+            personService.modify(id,name);
     }
 
     //
@@ -54,4 +69,6 @@ public class PersonController {
 
 
     }
+
+
 }
